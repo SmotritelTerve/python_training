@@ -2,6 +2,7 @@ from selenium.webdriver.firefox.webdriver import WebDriver
 from fixture.session import SessionHelper
 from fixture.group import GroupHelper
 from fixture.contact import ContactHelper
+import random
 
 
 class Application:
@@ -16,6 +17,9 @@ class Application:
     def open_home_page(self):
         wd = self.wd
         wd.get("http://localhost:8989/addressbook/")
+
+    def get_random_int(self):
+        return random.randrange(1, 2000)
 
     def destroy(self):
         self.wd.quit()

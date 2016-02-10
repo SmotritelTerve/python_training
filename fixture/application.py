@@ -26,6 +26,10 @@ class Application:
         wd = self.wd
         wd.get("http://localhost:8989/addressbook/")
 
+    def click_home(self):
+        wd = self.wd
+        wd.find_element_by_link_text("home").click()
+
     def get_random_int(self):
         return random.randrange(1, 2000)
 

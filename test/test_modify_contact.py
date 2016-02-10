@@ -4,6 +4,8 @@ from model.contact import Contact
 
 def test_modify_first_contact(app):
     random_value = str(app.get_random_int())
+    if app.contact.count() == 0:
+        app.contact.add(Contact(name="First Contact"))
     app.contact.modify_first_contact(Contact(name="name" + random_value,
                                              middle_name="middleName" + random_value,
                                              last_name="lastName" + random_value,

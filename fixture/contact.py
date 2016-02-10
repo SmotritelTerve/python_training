@@ -86,7 +86,7 @@ class ContactHelper:
 
     def delete_first_contact(self):
         wd = self.app.wd
-        self.app.click_home()
+        self.app.go_to_home()
         # select first contact
         wd.find_element_by_name("selected[]").click()
         # submit deletion
@@ -107,5 +107,5 @@ class ContactHelper:
 
     def count(self):
         wd = self.app.wd
-        self.app.click_home()
+        self.app.go_to_home()
         return len(wd.find_elements_by_name("selected[]"))

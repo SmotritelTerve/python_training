@@ -4,7 +4,6 @@ from model.contact import Contact
 
 def test_modify_first_contact(app):
     random_value = str(app.get_random_int())
-    app.session.login(username="admin", password="secret")
     app.contact.modify_first_contact(Contact(name="name" + random_value,
                                              middle_name="middleName" + random_value,
                                              last_name="lastName" + random_value,
@@ -25,4 +24,3 @@ def test_modify_first_contact(app):
                                              address_2="address" + random_value,
                                              phone_2="home" + random_value,
                                              notes="notes" + random_value))
-    app.session.logout()

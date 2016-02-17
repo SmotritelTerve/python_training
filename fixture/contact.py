@@ -9,7 +9,7 @@ class ContactHelper:
     def fill_contact_form(self, wd, contact):
         wd.find_element_by_name("firstname").click()
         wd.find_element_by_name("firstname").clear()
-        wd.find_element_by_name("firstname").send_keys(contact.name)
+        wd.find_element_by_name("firstname").send_keys(contact.first_name)
         wd.find_element_by_name("middlename").click()
         wd.find_element_by_name("middlename").clear()
         wd.find_element_by_name("middlename").send_keys(contact.middle_name)
@@ -118,7 +118,8 @@ class ContactHelper:
         self.app.go_to_home()
         contacts = []
         for element in wd.find_elements_by_xpath("//tr[@name='entry']"):
-            text = element.find_element_by_xpath("//tr[@name='entry']/td[2]").text
+            firstname = element.find_element_by_xpath("//tr[@name='entry']/td[3]").text
+            lastname = element.find_element_by_xpath("//tr[@name='entry']/td[2]").text
             id = element.find_element_by_name("selected[]").get_attribute("value")
-            contacts.append(Contact(last_name=text, id=id))
+            contacts.append(Contact(id=id, first_name=firstname, last_name=lastname))
         return contacts

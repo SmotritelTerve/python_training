@@ -27,9 +27,18 @@ def test_modify_first_contact(app):
                       address_2="address" + random_value,
                       phone_2="home" + random_value,
                       notes="notes" + random_value)
+
+    # contact.id = old_contacts[0].id
+    # app.contact.modify_first_contact(contact)
+    # new_contacts = app.contact.get_contact_list()
+    # assert len(old_contacts) == len(new_contacts)
+    # old_contacts[0] = contact
+    # assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)
+
     contact.id = old_contacts[0].id
     app.contact.modify_first_contact(contact)
     new_contacts = app.contact.get_contact_list()
     assert len(old_contacts) == len(new_contacts)
     old_contacts[0] = contact
+    # assert old_contacts == new_contacts
     assert sorted(old_contacts, key=Contact.id_or_max) == sorted(new_contacts, key=Contact.id_or_max)

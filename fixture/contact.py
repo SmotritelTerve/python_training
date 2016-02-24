@@ -88,29 +88,31 @@ class ContactHelper:
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
         self.contact_cache = None
 
-    def delete_first_contact(self):
+    def delete_contact_by_index(self, index):
         wd = self.app.wd
         self.app.go_to_home()
-        # select first contact
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         # submit deletion
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
         self.contact_cache = None
 
-    def modify_first_contact(self, contact):
+    def delete_first_contact(self):
+        self.delete_contact_by_index(0)
+
+    def modify_contact_by_index(self, index, contact):
         wd = self.app.wd
-        # init first contact modification
-        if self.count() > 1:
-            wd.find_element_by_xpath("(//img[@alt='Edit'])[1]").click()
-        else:
-            wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        # init contact modification
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
         # fill form with new values
         self.fill_contact_form(wd, contact)
         # submit modification
         wd.find_element_by_xpath("//input[@name='update']").click()
         wd.find_element_by_link_text("home").click()
         self.contact_cache = None
+
+    def modify_first_contact(self, contact):
+        self.modify_contact_by_index(0, contact)
 
     def count(self):
         wd = self.app.wd

@@ -7,7 +7,8 @@ class Contact:
                  company="West Coast Gang", address="Loosers Street, 13", home_phone="666777333", mobile_phone="+16667778888",
                  work_phone="777", fax_phone="000", email_1="email_1@example.com", email_2="email_2@example.com",
                  email_3="email_3@example.com", homepage="habrahabr.ru", birthday_year="2000", anniversary_year="2005",
-                 address_2="Lucky Street, 7", phone_2="666666666", notes="do not worry, be happy", id=None):
+                 address_2="Lucky Street, 7", phone_2="666666666", notes="do not worry, be happy", id=None,
+                 all_phones_from_home_page=None, all_emails=None):
         self.first_name = first_name
         self.middle_name = middle_name
         self.last_name = last_name
@@ -28,6 +29,8 @@ class Contact:
         self.address_2 = address_2
         self.phone_2 = phone_2
         self.notes = notes
+        self.all_phones_from_home_page = all_phones_from_home_page
+        self.all_emails = all_emails
         self.id = id
 
     def __repr__(self):

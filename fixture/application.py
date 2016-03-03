@@ -36,3 +36,7 @@ class Application:
 
     def destroy(self):
         self.wd.quit()
+
+    def click_home(self):
+        wd = self.wd
+        wd.find_element_by_link_text("home").click()

@@ -127,6 +127,7 @@ class ContactHelper:
         self.fill_contact_form(wd, contact)
         # submit contact creation
         wd.find_element_by_xpath("//div[@id='content']/form/input[21]").click()
+        self.app.click_home
         self.contact_cache = None
 
     def delete_contact_by_index(self, index):

@@ -11,20 +11,27 @@ class Application:
     def __init__(self, browser, base_url):
         # self.wd = WebDriver()
         if browser == "firefox":
-            self.wd = webdriver.Firefox()
+            profile = webdriver.FirefoxProfile()
+            profile.set_preference('browser.startup.homepage', '')
+            profile.set_preference('startup.homepage_welcome_url', '')
+            profile.set_preference('startup.homepage_welcome_url.additional', '')
+            self.wd = webdriver.Firefox(profile)
         elif browser == "chrome":
-            self.wd = webdriver.Chrome()
+            options = webdriver.ChromeOptions()
+            options.add_experimental_option("excludeSwitches", ["ignore-certificate-errors"])
+            options.add_argument('--disable-extensions')
+            self.wd = webdriver.Chrome(chrome_options=options)
         elif browser == "ie":
             self.wd = webdriver.Ie()
         else:
             raise ValueError("Unrecognized browser %s" % browser)
 
-        self.open_home_page()
         # self.wd.implicitly_wait(60)
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
         self.base_url = base_url
+        self.open_home_page()
 
     def is_valid(self):
         try:

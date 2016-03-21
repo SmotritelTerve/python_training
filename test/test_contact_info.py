@@ -1,4 +1,5 @@
 import re
+from model.contact import Contact
 
 
 def test_contact_info_on_home_page(app):
@@ -9,6 +10,12 @@ def test_contact_info_on_home_page(app):
     assert contact_from_home_page.address == contact_from_edit_page.address
     assert contact_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(contact_from_edit_page)
     assert contact_from_home_page.all_emails == merge_emails_like_on_home_page(contact_from_edit_page)
+
+
+def test_contact_info_on_home_page_use_db(app, db):
+    contacts_from_home_page = app.contact.get_contact_list()
+    contacts_from_db = db.get_contact_list()
+    assert sorted(contacts_from_home_page, key=Contact.id_or_max) == sorted(contacts_from_db, key=Contact.id_or_max)
 
 
 def clear(s):

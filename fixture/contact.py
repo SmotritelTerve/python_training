@@ -1,5 +1,12 @@
 from model.contact import Contact
 import re
+import random
+import jsonpickle
+import os.path
+# import time
+from selenium.webdriver.support.ui import Select
+
+f = "data/context.json"
 
 
 class ContactHelper:
@@ -152,8 +159,6 @@ class ContactHelper:
 
     def select_contact_by_id(self, id):
         wd = self.app.wd
-        # wd.find_element_by_css_selector("input[value='%s']" % id).click()
-        print('********** id = ' + id)
         wd.find_element_by_xpath("//input[@id='%s']" % id).click()
         # wd.find_element_by_xpath("//input[@id='121']").click()
 
@@ -235,3 +240,27 @@ class ContactHelper:
                        work_phone=work_phone,
                        phone_2=phone_2
                        )
+
+    def add_contact_to_group(self, id):
+        context = {}
+        wd = self.app.wd
+        self.select_contact_by_id(id)
+        wd.find_element_by_xpath("//select[@name='to_group']").click()
+        l = list(wd.find_elements_by_xpath("//select[@name='to_group']/option"))
+        selected_group = random.choice(l)
+        selected_group.click()
+        context['selected_group_name'] = selected_group.text
+        context['selected_contact_id'] = id
+        file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
+        with open(file, "w") as out:
+            jsonpickle.set_encoder_options("json", indent=2)
+            out.write(jsonpickle.encode(context))
+        wd.find_element_by_xpath("//input[@name='add']").click()
+        self.app.click_home()
+
+    def delete_contact_from_group(self, contact_id, group_name):
+        wd = self.app.wd
+        Select(wd.find_element_by_xpath("//select[@name='group']")).select_by_visible_text(group_name)
+        # time.sleep(2)
+        wd.find_element_by_xpath("//input[@id='%s']" % contact_id).click()
+        wd.find_element_by_css_selector(".left input[name='remove']").click()

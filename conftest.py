@@ -9,6 +9,7 @@ from fixture.db import DbFixture
 fixture = None
 target = None
 
+
 def load_config(file):
     global target
     if target is None:
@@ -53,6 +54,12 @@ def stop(request):
 @pytest.fixture
 def check_ui(request):
     return request.config.getoption("--check_ui")
+
+
+@pytest.fixture
+def context():
+    context_dict = {}
+    return context_dict
 
 
 def pytest_addoption(parser):

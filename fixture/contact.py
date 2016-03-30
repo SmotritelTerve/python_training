@@ -176,6 +176,16 @@ class ContactHelper:
         wd.find_element_by_link_text("home").click()
         self.contact_cache = None
 
+    def modify_contact_by_id(self, contact, id):
+        wd = self.app.wd
+        self.app.go_to_home()
+        wd.find_element_by_xpath("//a[@href='edit.php?id=%s']/img" % id).click()
+        self.fill_contact_form(wd, contact)
+        # submit modification
+        wd.find_element_by_xpath("//input[@name='update']").click()
+        wd.find_element_by_link_text("home").click()
+        self.contact_cache = None
+
     def open_contact_to_edit_by_index(self, index):
         wd = self.app.wd
         self.app.go_to_home()
